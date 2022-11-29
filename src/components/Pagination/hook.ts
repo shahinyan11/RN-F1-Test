@@ -24,8 +24,7 @@ function useContainer({visiblePagesCount = 5}: PaginationProps) {
   const buildPagesList = () => {
     let arr: any[] = [];
 
-    const lastPage =
-      Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount;
+    const lastPage = Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount;
 
     for (let i = lastPage; i > lastPage - visiblePagesCount; i--) {
       i < totalPages && arr.unshift(i);
