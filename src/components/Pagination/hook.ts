@@ -13,13 +13,12 @@ function useContainer({visiblePagesCount = 5}: PaginationProps) {
   );
 
   useEffect(() => {
-    buildPagesList();
-
-    setPrevDisabled(currentPage <= visiblePagesCount);
-
     const penultimate = Math.floor(totalPages / visiblePagesCount) * visiblePagesCount;
 
     setNextDisabled(currentPage > penultimate);
+    setPrevDisabled(currentPage <= visiblePagesCount);
+
+    buildPagesList();
   }, [currentPage, totalPages]);
 
   const buildPagesList = () => {
@@ -41,11 +40,13 @@ function useContainer({visiblePagesCount = 5}: PaginationProps) {
 
   const handlePrev = () => {
     const page = currentPage - ((currentPage % visiblePagesCount) + visiblePagesCount);
+
     dispatch(setCurrentPage(page + 1));
   };
 
   const handleNext = () => {
     const page = Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount + 1;
+
     dispatch(setCurrentPage(page));
   };
 
