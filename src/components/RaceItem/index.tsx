@@ -2,7 +2,7 @@ import React from 'react';
 import {Linking, Pressable, Text, View} from 'react-native';
 import st from './style';
 
-import {Race} from '../../store/reducers/app/types';
+import {Race} from '../../store/reducers/app/dataTypes';
 
 function RaceItem({season, round, url, raceName, date, Circuit}: Race) {
   return (

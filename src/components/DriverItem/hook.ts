@@ -1,7 +1,7 @@
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
-import {Driver} from '../../store/reducers/app/types';
+import {Driver} from '../../store/reducers/app/dataTypes';
 import {getDriverRaces} from '../../store/actions/app';
 
 function useContainer(driver: Driver) {

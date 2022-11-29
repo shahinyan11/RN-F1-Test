@@ -17,8 +17,7 @@ function useContainer({visiblePagesCount = 5}: PaginationProps) {
 
     setPrevDisabled(currentPage <= visiblePagesCount);
 
-    const penultimate =
-      Math.floor(totalPages / visiblePagesCount) * visiblePagesCount;
+    const penultimate = Math.floor(totalPages / visiblePagesCount) * visiblePagesCount;
 
     setNextDisabled(currentPage > penultimate);
   }, [currentPage, totalPages]);
@@ -41,14 +40,12 @@ function useContainer({visiblePagesCount = 5}: PaginationProps) {
   }, []);
 
   const handlePrev = () => {
-    const page =
-      currentPage - ((currentPage % visiblePagesCount) + visiblePagesCount);
+    const page = currentPage - ((currentPage % visiblePagesCount) + visiblePagesCount);
     dispatch(setCurrentPage(page + 1));
   };
 
   const handleNext = () => {
-    const page =
-      Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount + 1;
+    const page = Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount + 1;
     dispatch(setCurrentPage(page));
   };
 
