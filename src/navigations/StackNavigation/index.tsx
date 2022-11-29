@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import HomeScreen from '../../screens/HomeScreen';
 import RaceScreen from '../../screens/RaceScreen';
+import DriverInfoScreen from '../../screens/DriverInfoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,7 @@ function StackNavigation() {
       <Stack.Navigator>
         <Stack.Screen name={'HomeScreen'} component={HomeScreen} />
         <Stack.Screen name={'RaceScreen'} component={RaceScreen} />
+        <Stack.Screen name={'DriverInfoScreen'} component={DriverInfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

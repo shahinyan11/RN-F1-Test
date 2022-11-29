@@ -1,9 +1,14 @@
-import {GET_DATA_REQUEST, SET_DRIVERS} from '../../actions/app';
-import {InitData} from './types';
+import {
+  GET_DATA_REQUEST,
+  SET_DRIVER_RACES,
+  SET_DRIVERS,
+} from '../../actions/app';
+import {InitData} from './dataTypes';
 
 const initialState: InitData = {
   status: 'no',
   drivers: [],
+  races: [],
 };
 
 export default function (state = initialState, action: any) {
@@ -16,10 +21,16 @@ export default function (state = initialState, action: any) {
     }
 
     case SET_DRIVERS: {
-      console.log(222, action.payload.data);
       return {
         ...state,
         drivers: action.payload.data,
+      };
+    }
+
+    case SET_DRIVER_RACES: {
+      return {
+        ...state,
+        races: action.payload,
       };
     }
 

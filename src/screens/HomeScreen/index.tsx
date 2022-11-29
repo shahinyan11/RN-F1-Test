@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList, Image, SafeAreaView, View} from 'react-native';
-
 // @ts-ignore
 import topImage from '../../assets/images/f1-22.webp';
 import Pagination from '../../components/Pagination';
@@ -20,6 +19,7 @@ function HomeScreen() {
         data={drivers}
         renderItem={renderItem}
         keyExtractor={item => item.driverId}
+        style={st.listStyle}
       />
     </SafeAreaView>
   );

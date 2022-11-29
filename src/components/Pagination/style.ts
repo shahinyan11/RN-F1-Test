@@ -3,12 +3,10 @@ import {Sizes} from '../../constants/ratio';
 
 export default StyleSheet.create({
   container: {
-    width: Sizes(250),
     height: Sizes(30),
     alignSelf: 'center',
     marginVertical: Sizes(8),
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   arrowView: {
     width: Sizes(30),
@@ -26,7 +24,9 @@ export default StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: Sizes(4)
   },
+
   disabledView: {
     width: Sizes(30),
     height: '100%',
@@ -42,6 +42,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#1e4fc2',
     borderRadius: 10,
+    marginHorizontal: Sizes(6)
   },
 
   text: {

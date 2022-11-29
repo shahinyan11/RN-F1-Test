@@ -1,56 +1,65 @@
-import React, {useState} from 'react';
-import _ from 'lodash';
+import {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentPage, setIndex} from '../../store/actions/pagination';
+import {setCurrentPage} from '../../store/actions/pagination';
+import {PaginationProps} from './dataTypes';
 
-function useContainer() {
+function useContainer({visiblePagesCount = 5}: PaginationProps) {
   const dispatch = useDispatch();
-  const [disable, setDisable] = useState('first');
-  const {currentPage, totalPages, index} = useSelector(
+  const [pages, setPages] = useState<number[]>([]);
+  const [prevDisabled, setPrevDisabled] = useState(true);
+  const [nextDisabled, setNextDisabled] = useState(false);
+  const {currentPage, totalPages} = useSelector(
     (state: any) => state.pagination,
   );
 
-  const renderArray = (count: number) => {
-    let arr = [];
-    for (let i: number = 1; i <= count; i++) {
-      arr.push(i);
+  useEffect(() => {
+    buildPagesList();
+
+    setPrevDisabled(currentPage <= visiblePagesCount);
+
+    const penultimate =
+      Math.floor(totalPages / visiblePagesCount) * visiblePagesCount;
+
+    setNextDisabled(currentPage > penultimate);
+  }, [currentPage, totalPages]);
+
+  const buildPagesList = () => {
+    let arr: any[] = [];
+
+    const lastPage =
+      Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount;
+
+    for (let i = lastPage; i > lastPage - visiblePagesCount; i--) {
+      i < totalPages && arr.unshift(i);
     }
-    return _.chunk(arr, 5);
+
+    setPages(arr);
   };
 
-  const data = renderArray(totalPages);
+  const handlePageClick = useCallback((page: number) => {
+    dispatch(setCurrentPage(page));
+  }, []);
 
-  const handlePages = (page: number | null, type?: string) => {
-    if (page) {
-      dispatch(setCurrentPage(page));
-    }
-    if (type === 'minus') {
-      if (index !== 0) {
-        dispatch(setIndex(index - 1));
-        dispatch(setCurrentPage(data[index - 1][0]));
-      }
-      if (index == 1) {
-        setDisable('first');
-      }
-    }
-    if (type === 'plus') {
-      if (index !== data.length - 1) {
-        dispatch(setIndex(index + 1));
-        dispatch(setCurrentPage(data[index + 1][0]));
-        setDisable('');
-      }
-      if (index === data.length - 2) {
-        setDisable('last');
-      }
-    }
+  const handlePrev = () => {
+    const page =
+      currentPage - ((currentPage % visiblePagesCount) + visiblePagesCount);
+    dispatch(setCurrentPage(page + 1));
+  };
+
+  const handleNext = () => {
+    const page =
+      Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount + 1;
+    dispatch(setCurrentPage(page));
   };
 
   return {
-    index,
+    pages,
     currentPage,
-    data,
-    handlePages,
-    disable,
+    prevDisabled,
+    nextDisabled,
+    handlePrev,
+    handleNext,
+    handlePageClick,
   };
 }
 

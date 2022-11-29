@@ -6,33 +6,42 @@ import useContainer from './hook';
 import LeftArrow from '../../assets/svg/leftArrow';
 import RightArrow from '../../assets/svg/rightArrow';
 
-function Pagination() {
-  const {index, currentPage, data, disable, handlePages} = useContainer();
+import {PaginationProps} from './dataTypes';
+
+function Pagination(props: PaginationProps) {
+  const {
+    pages,
+    currentPage,
+    prevDisabled,
+    nextDisabled,
+    handlePrev,
+    handleNext,
+    handlePageClick,
+  } = useContainer(props);
 
   return (
     <View style={st.container}>
       <Pressable
         style={st.arrowView}
-        onPress={() => handlePages(null, 'minus')}>
-        <LeftArrow disable={disable} />
+        onPress={handlePrev}
+        disabled={prevDisabled}>
+        <LeftArrow disabled={prevDisabled} />
       </Pressable>
-
-      {!_.isEmpty(data[index]) &&
-        data[index].map((item: any) => {
-          return (
-            <Pressable
-              key={_.uniqueId()}
-              style={currentPage === item ? st.activeNum : st.numView}
-              onPress={() => handlePages(item)}>
-              <Text style={currentPage === item ? st.activeText : st.text}>
-                {item}
-              </Text>
-            </Pressable>
-          );
-        })}
-
-      <Pressable style={st.arrowView} onPress={() => handlePages(null, 'plus')}>
-        <RightArrow disable={disable} />
+      {pages.map((page: any) => (
+        <Pressable
+          key={_.uniqueId()}
+          style={currentPage === page ? st.activeNum : st.numView}
+          onPress={() => handlePageClick(page)}>
+          <Text style={currentPage === page ? st.activeText : st.text}>
+            {page}
+          </Text>
+        </Pressable>
+      ))}
+      <Pressable
+        style={st.arrowView}
+        onPress={handleNext}
+        disabled={nextDisabled}>
+        <RightArrow disabled={nextDisabled} />
       </Pressable>
     </View>
   );

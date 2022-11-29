@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {getDriversAction} from '../../store/actions/app';
-import DriversAll from '../../components/DriversAll';
+import {getDrivers} from '../../store/actions/app';
+import DriverItem from '../../components/DriverItem';
 
 function useContainer() {
   const dispatch = useDispatch();
@@ -10,15 +10,11 @@ function useContainer() {
   const {drivers} = useSelector((state: any) => state.app);
 
   useEffect(() => {
-    dispatch(getDriversAction());
+    dispatch(getDrivers());
   }, [currentPage, dispatch]);
 
   const renderItem = ({item}: any) => {
-    const {givenName, familyName, nationality} = item;
-
-    return (
-      <DriversAll name={`${givenName} ${familyName}`} country={nationality} />
-    );
+    return <DriverItem {...item} />;
   };
 
   return {
