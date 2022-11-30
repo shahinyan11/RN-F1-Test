@@ -20,5 +20,6 @@ const store = createStore(persistedReducer, applyMiddleware(...middlewares));
 sagaMiddleware.run(rootSaga);
 let persistor = persistStore(store);
 
-export default store;
 export {persistor};
+export type RootState = ReturnType<typeof rootReducer>;
+export default store;

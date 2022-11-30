@@ -1,12 +1,13 @@
 import {SET_DRIVERS} from '../../actions/app';
 import {SET_PAGE} from '../../actions/pagination';
+import {Action} from '../dataTypes';
 
 const initialState = {
   currentPage: 1,
   totalPages: 10,
 };
 
-export default function (state = initialState, action: any) {
+export default function (state = initialState, action: Action) {
   switch (action.type) {
     case SET_DRIVERS: {
       return {

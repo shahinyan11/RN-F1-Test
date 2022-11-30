@@ -1,5 +1,4 @@
 export interface InitData {
-  status: 'no' | 'ok' | 'error' | 'request';
   drivers: Driver[];
   races: Race[];
 }

@@ -27,7 +27,7 @@ function Pagination(props: PaginationProps) {
         disabled={prevDisabled}>
         <LeftArrow disabled={prevDisabled} />
       </Pressable>
-      {pages.map((page: any) => (
+      {pages.map((page: number) => (
         <Pressable
           key={_.uniqueId()}
           style={currentPage === page ? st.activeNum : st.numView}

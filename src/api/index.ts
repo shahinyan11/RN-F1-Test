@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {BASE_URL} from '../constants';
+import {GetDriversParams} from './dataTypes';
 
-export function getDrivers(params: any) {
+export function getDrivers(params: GetDriversParams) {
   return axios.get(`${BASE_URL}/drivers.json`, {params});
 }
 

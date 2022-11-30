@@ -1,19 +1,19 @@
 import {useCallback, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setCurrentPage} from '../../store/actions/pagination';
 import {PaginationProps} from './dataTypes';
+import useTypedSelector from '../../hooks/useTypedSelector';
 
 function useContainer({visiblePagesCount = 5}: PaginationProps) {
   const dispatch = useDispatch();
   const [pages, setPages] = useState<number[]>([]);
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
-  const {currentPage, totalPages} = useSelector(
-    (state: any) => state.pagination,
-  );
+  const {currentPage, totalPages} = useTypedSelector(state => state.pagination);
 
   useEffect(() => {
-    const penultimate = Math.floor(totalPages / visiblePagesCount) * visiblePagesCount;
+    const penultimate =
+      Math.floor(totalPages / visiblePagesCount) * visiblePagesCount;
 
     setNextDisabled(currentPage > penultimate);
     setPrevDisabled(currentPage <= visiblePagesCount);
@@ -22,9 +22,10 @@ function useContainer({visiblePagesCount = 5}: PaginationProps) {
   }, [currentPage, totalPages]);
 
   const buildPagesList = () => {
-    let arr: any[] = [];
+    let arr: number[] = [];
 
-    const lastPage = Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount;
+    const lastPage =
+      Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount;
 
     for (let i = lastPage; i > lastPage - visiblePagesCount; i--) {
       i < totalPages && arr.unshift(i);
@@ -38,13 +39,15 @@ function useContainer({visiblePagesCount = 5}: PaginationProps) {
   }, []);
 
   const handlePrev = () => {
-    const page = currentPage - ((currentPage % visiblePagesCount) + visiblePagesCount);
+    const page =
+      currentPage - ((currentPage % visiblePagesCount) + visiblePagesCount);
 
     dispatch(setCurrentPage(page + 1));
   };
 
   const handleNext = () => {
-    const page = Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount + 1;
+    const page =
+      Math.ceil(currentPage / visiblePagesCount) * visiblePagesCount + 1;
 
     dispatch(setCurrentPage(page));
   };

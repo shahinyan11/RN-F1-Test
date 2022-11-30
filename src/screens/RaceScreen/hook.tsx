@@ -1,12 +1,14 @@
-import {useSelector} from 'react-redux';
 import React from 'react';
+import {ListRenderItem} from 'react-native';
 
 import RaceItem from '../../components/RaceItem';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {Race} from '../../store/reducers/app/dataTypes';
 
 function useContainer() {
-  const {races} = useSelector((state: any) => state.app);
+  const {races} = useTypedSelector(state => state.app);
 
-  const renderItem = ({item}: any) => {
+  const renderItem: ListRenderItem<Race> = ({item}) => {
     return <RaceItem {...item} />;
   };
 

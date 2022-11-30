@@ -1,25 +1,14 @@
-import {
-  GET_DATA_REQUEST,
-  SET_DRIVER_RACES,
-  SET_DRIVERS,
-} from '../../actions/app';
+import {SET_DRIVER_RACES, SET_DRIVERS} from '../../actions/app';
 import {InitData} from './dataTypes';
+import {Action} from '../dataTypes';
 
 const initialState: InitData = {
-  status: 'no',
   drivers: [],
   races: [],
 };
 
-export default function (state = initialState, action: any) {
+export default function (state = initialState, action: Action) {
   switch (action.type) {
-    case GET_DATA_REQUEST: {
-      return {
-        ...state,
-        status: 'request',
-      };
-    }
-
     case SET_DRIVERS: {
       return {
         ...state,
