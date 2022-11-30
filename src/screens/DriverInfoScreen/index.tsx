@@ -8,10 +8,11 @@ import {
   View,
 } from 'react-native';
 
+import {DriverInfoScreenProps} from '../../navigations/StackNavigation/types';
 import flags from '../../constants/flags';
 import st from './style';
 
-function DriverInfoScreen({route}: any) {
+function DriverInfoScreen({route}: DriverInfoScreenProps) {
   const {givenName, familyName, nationality, url, dateOfBirth} = route.params;
 
   return (
